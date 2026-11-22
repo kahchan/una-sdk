@@ -1,0 +1,27 @@
+{
+  "manifest_version": 1,
+  "type": [
+    "clockface"
+  ],
+  "name": "Atelier",
+  "icon": "Resources/icon_60x60.png",
+  "binary": "Atelier_0.1.0.uapp",
+  "previews": "assets/previews/",
+  "appVersion": "0.1.0",
+  "minKernelVersion": "1.4.0",
+  "description": "Analogue watch faces drawn from vintage dials. A different face each day, or pick one.",
+  "id": "0728DB9D670DEA0F",
+  "configFile": "app_config.json",
+  "configFields": [
+    {
+      "id": "face",
+      "type": "int",
+      "label": "Face",
+      "description": "0 changes the face every day. 1 to 8 keeps one face: Field, Diver, Doctor, Track, Panda, Tricompax, Driver, Pilot.",
+      "default": 0,
+      "min": 0,
+      "max": 8,
+      "validationMessage": "A whole number from 0 to 8."
+    }
+  ]
+}

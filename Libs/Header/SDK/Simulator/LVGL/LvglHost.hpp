@@ -83,6 +83,7 @@ private:
     static void stopFromSystem();
 
     void pumpEvents();
+    void dumpFrameIfDue();
     void present(bool force);
     void requestStop();
     void tickThread();
@@ -107,6 +108,11 @@ private:
     std::atomic<bool> mTickPending { false };   ///< a tick is queued that the GUI thread has not seen
     bool              mSdlReady = false;   ///< SDL_Init() succeeded; SDL_Quit() owed
     bool              mStarted  = false;   ///< start() told the processes the GUI runs
+
+    const char* mDumpPath = nullptr;   ///< env UNA_SIM_DUMP: write a PPM of the frame after ~2 s (UNA_SIM_DUMP_AFTER_MS overrides), then quit
+    uint32_t    mDumpAfterMs = 2000;
+    bool        mDumped   = false;
+    uint32_t    mStartMs  = 0;
 
     uint32_t mShownFrame    = 0;
     bool     mStopRequested = false;

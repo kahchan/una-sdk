@@ -8,6 +8,8 @@
 #include "SDK/Simulator/LVGL/LvglHost.hpp"
 
 #include <chrono>
+#include <cstdio>
+#include <cstdlib>
 
 #include <SDL.h>
 
@@ -112,6 +114,10 @@ void LvglHost::start()
     sendToService(SDK::MessageType::COMMAND_APP_NOTIF_GUI_RUN);
     sendToGui(SDK::MessageType::COMMAND_APP_GUI_RESUME);
 
+    mDumpPath   = std::getenv("UNA_SIM_DUMP");
+    const char* after = std::getenv("UNA_SIM_DUMP_AFTER_MS");
+    mDumpAfterMs = after ? static_cast<uint32_t>(std::atoi(after)) : 2000;
+    mStartMs    = mKernel.sys.getTimeMs();
     mTicking    = true;
     mStarted    = true;
     mTickThread = std::thread(&LvglHost::tickThread, this);
@@ -165,6 +171,29 @@ void LvglHost::frameHook(void* ctx)
     self->mTickPending = false;
     self->pumpEvents();
     self->present(false);
+    self->dumpFrameIfDue();
+}
+
+void LvglHost::dumpFrameIfDue()
+{
+    if (!mDumpPath || mDumped || mKernel.sys.getTimeMs() - mStartMs < mDumpAfterMs) {
+        return;
+    }
+    mDumped = true;
+    if (FILE* f = std::fopen(mDumpPath, "wb")) {
+        std::fprintf(f, "P6\n%d %d\n255\n", SDK::LVGL::kDisplayWidth, SDK::LVGL::kDisplayHeight);
+        const uint8_t* src = SDK::LVGL::Port::GetInstance().frame();
+        for (int i = 0; i < SDK::LVGL::kDisplayWidth * SDK::LVGL::kDisplayHeight; ++i) {
+            const uint8_t rgb[3] = { static_cast<uint8_t>((src[i] & 3) * 85),
+                                     static_cast<uint8_t>(((src[i] >> 2) & 3) * 85),
+                                     static_cast<uint8_t>(((src[i] >> 4) & 3) * 85) };
+            std::fwrite(rgb, 1, 3, f);
+        }
+        std::fclose(f);
+    } else {
+        LOG_ERROR("UNA_SIM_DUMP: cannot write %s\n", mDumpPath);
+    }
+    requestStop();
 }
 
 void LvglHost::stopFromSystem()

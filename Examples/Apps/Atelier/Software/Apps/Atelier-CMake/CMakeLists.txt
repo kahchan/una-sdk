@@ -8,7 +8,7 @@ set(APP_TYPE "Clockface")
 set(DEV_ID "UNA")
 set(APP_ID "0728DB9D670DEA0F")
 # Pinned rather than taken from apps-v* git tags; bump it for every store upload
-set(BUILD_VERSION "0.1.0")
+set(BUILD_VERSION "0.1.1")
 set(RESOURCES_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../Resources")
 set(OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../Output")
 set(LIBS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../Libs")

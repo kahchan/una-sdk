@@ -9,7 +9,7 @@
   "previews": "assets/previews/",
   "appVersion": "0.1.0",
   "minKernelVersion": "1.4.0",
-  "description": "Eight analogue faces drawn from vintage dials, each with a working complication: steps, active minutes, floors, resting heart rate, battery or altitude. A different face each day, or pick one. Built and tested in the simulator on a Mac.",
+  "description": "Eight analogue faces drawn from vintage dials, each with a working complication: steps, active minutes, floors, resting heart rate, battery or altitude. A different watch from your watch box each day, or keep one. Built and tested in the simulator on a Mac.",
   "id": "0728DB9D670DEA0F",
   "configFile": "app_config.json",
   "configFields": [

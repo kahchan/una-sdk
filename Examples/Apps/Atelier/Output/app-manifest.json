@@ -9,8 +9,18 @@
   "previews": "assets/previews/",
   "appVersion": "0.1.0",
   "minKernelVersion": "1.4.0",
+  "requiredHardware": [],
+  "stravaExport": false,
   "description": "Eight analogue faces drawn from vintage dials, each with a working complication: steps, active minutes, floors, resting heart rate, battery or altitude. A different watch from your watch box each day, or keep one. Built and tested in the simulator on a Mac.",
   "id": "0728DB9D670DEA0F",
+  "supportsLaps": false,
+  "supportsDistance": false,
+  "supportsTrack": false,
+  "supportsHeartbeat": false,
+  "supportsElevation": false,
+  "supportsStep": false,
+  "supportsSpeed": "none",
+  "customMeasures": [],
   "configFile": "app_config.json",
   "configFields": [
     {
